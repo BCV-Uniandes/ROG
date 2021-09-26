@@ -1,0 +1,9 @@
+image,label
+./imagesTr/spleen_10.nii.gz,./labelsTr/spleen_10.nii.gz
+./imagesTr/spleen_52.nii.gz,./labelsTr/spleen_52.nii.gz
+./imagesTr/spleen_12.nii.gz,./labelsTr/spleen_12.nii.gz
+./imagesTr/spleen_24.nii.gz,./labelsTr/spleen_24.nii.gz
+./imagesTr/spleen_49.nii.gz,./labelsTr/spleen_49.nii.gz
+./imagesTr/spleen_19.nii.gz,./labelsTr/spleen_19.nii.gz
+./imagesTr/spleen_62.nii.gz,./labelsTr/spleen_62.nii.gz
+./imagesTr/spleen_28.nii.gz,./labelsTr/spleen_28.nii.gz

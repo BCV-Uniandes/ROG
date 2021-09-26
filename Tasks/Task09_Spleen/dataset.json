@@ -1,0 +1,26 @@
+{
+    "mean_size": [
+        512.0,
+        512.0,
+        60.0
+    ],
+    "small_size": [
+        121.0,
+        120.0,
+        18.0
+    ],
+    "volume_small": 77158.0,
+    "big_size": [
+        121.0,
+        120.0,
+        18.0
+    ],
+    "volume_big": 77158.0,
+    "modality": {
+        "0": "CT"
+    },
+    "labels": {
+        "0": "background",
+        "1": "spleen"
+    }
+}

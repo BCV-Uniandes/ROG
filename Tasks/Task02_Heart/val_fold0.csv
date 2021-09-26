@@ -1,0 +1,5 @@
+image,label
+./imagesTr/la_010.nii.gz,./labelsTr/la_010.nii.gz
+./imagesTr/la_019.nii.gz,./labelsTr/la_019.nii.gz
+./imagesTr/la_018.nii.gz,./labelsTr/la_018.nii.gz
+./imagesTr/la_004.nii.gz,./labelsTr/la_004.nii.gz

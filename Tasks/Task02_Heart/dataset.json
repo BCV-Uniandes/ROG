@@ -1,0 +1,26 @@
+{
+    "mean_size": [
+        320.0,
+        320.0,
+        115.0
+    ],
+    "small_size": [
+        41.0,
+        58.0,
+        68.0
+    ],
+    "volume_small": 46751.0,
+    "big_size": [
+        41.0,
+        58.0,
+        68.0
+    ],
+    "volume_big": 46751.0,
+    "modality": {
+        "0": "MRI"
+    },
+    "labels": {
+        "0": "background",
+        "1": "left atrium"
+    }
+}

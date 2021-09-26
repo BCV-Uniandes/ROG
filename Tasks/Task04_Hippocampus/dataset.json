@@ -1,0 +1,27 @@
+{
+    "mean_size": [
+        35.0,
+        50.0,
+        36.0
+    ],
+    "small_size": [
+        19.0,
+        23.0,
+        20.0
+    ],
+    "volume_small": 1580.0,
+    "big_size": [
+        21.0,
+        16.0,
+        14.0
+    ],
+    "volume_big": 1715.0,
+    "modality": {
+        "0": "MRI"
+    },
+    "labels": {
+        "0": "background",
+        "1": "Anterior",
+        "2": "Posterior"
+    }
+}

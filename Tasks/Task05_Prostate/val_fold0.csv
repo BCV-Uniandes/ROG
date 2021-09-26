@@ -1,0 +1,11 @@
+0,1,label
+./imagesTr/prostate_32_0.nii.gz,./imagesTr/prostate_32_1.nii.gz,./labelsTr/prostate_32.nii.gz
+./imagesTr/prostate_24_0.nii.gz,./imagesTr/prostate_24_1.nii.gz,./labelsTr/prostate_24.nii.gz
+./imagesTr/prostate_28_0.nii.gz,./imagesTr/prostate_28_1.nii.gz,./labelsTr/prostate_28.nii.gz
+./imagesTr/prostate_21_0.nii.gz,./imagesTr/prostate_21_1.nii.gz,./labelsTr/prostate_21.nii.gz
+./imagesTr/prostate_16_0.nii.gz,./imagesTr/prostate_16_1.nii.gz,./labelsTr/prostate_16.nii.gz
+./imagesTr/prostate_06_0.nii.gz,./imagesTr/prostate_06_1.nii.gz,./labelsTr/prostate_06.nii.gz
+./imagesTr/prostate_47_0.nii.gz,./imagesTr/prostate_47_1.nii.gz,./labelsTr/prostate_47.nii.gz
+./imagesTr/prostate_25_0.nii.gz,./imagesTr/prostate_25_1.nii.gz,./labelsTr/prostate_25.nii.gz
+./imagesTr/prostate_41_0.nii.gz,./imagesTr/prostate_41_1.nii.gz,./labelsTr/prostate_41.nii.gz
+./imagesTr/prostate_40_0.nii.gz,./imagesTr/prostate_40_1.nii.gz,./labelsTr/prostate_40.nii.gz

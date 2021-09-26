@@ -1,0 +1,26 @@
+{
+    "mean_size": [
+        512.0,
+        512.0,
+        160.0
+    ],
+    "small_size": [
+        45.0,
+        47.0,
+        24.0
+    ],
+    "volume_small": 28660.0,
+    "big_size": [
+        45.0,
+        47.0,
+        24.0
+    ],
+    "volume_big": 28660.0,
+    "modality": {
+        "0": "CT"
+    },
+    "labels": {
+        "0": "background",
+        "1": "cancer"
+    }
+}

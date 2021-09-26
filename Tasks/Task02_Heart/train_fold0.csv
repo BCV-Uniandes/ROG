@@ -1,0 +1,17 @@
+image,label
+./imagesTr/la_007.nii.gz,./labelsTr/la_007.nii.gz
+./imagesTr/la_023.nii.gz,./labelsTr/la_023.nii.gz
+./imagesTr/la_005.nii.gz,./labelsTr/la_005.nii.gz
+./imagesTr/la_009.nii.gz,./labelsTr/la_009.nii.gz
+./imagesTr/la_017.nii.gz,./labelsTr/la_017.nii.gz
+./imagesTr/la_021.nii.gz,./labelsTr/la_021.nii.gz
+./imagesTr/la_029.nii.gz,./labelsTr/la_029.nii.gz
+./imagesTr/la_003.nii.gz,./labelsTr/la_003.nii.gz
+./imagesTr/la_011.nii.gz,./labelsTr/la_011.nii.gz
+./imagesTr/la_030.nii.gz,./labelsTr/la_030.nii.gz
+./imagesTr/la_022.nii.gz,./labelsTr/la_022.nii.gz
+./imagesTr/la_014.nii.gz,./labelsTr/la_014.nii.gz
+./imagesTr/la_020.nii.gz,./labelsTr/la_020.nii.gz
+./imagesTr/la_016.nii.gz,./labelsTr/la_016.nii.gz
+./imagesTr/la_024.nii.gz,./labelsTr/la_024.nii.gz
+./imagesTr/la_026.nii.gz,./labelsTr/la_026.nii.gz

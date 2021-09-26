@@ -1,0 +1,5 @@
+# Results folder
+Results/
+
+# .pyc files
+*.pyc

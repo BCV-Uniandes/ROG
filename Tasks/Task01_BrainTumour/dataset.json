@@ -1,0 +1,31 @@
+{
+    "mean_size": [
+        240.0,
+        240.0,
+        155.0
+    ],
+    "small_size": [
+        35.0,
+        44.0,
+        38.0
+    ],
+    "volume_small": 16165.0,
+    "big_size": [
+        58.0,
+        81.0,
+        65.0
+    ],
+    "volume_big": 61932.0,
+    "modality": {
+        "0": "FLAIR",
+        "1": "T1w",
+        "2": "t1gd",
+        "3": "T2w"
+    },
+    "labels": {
+        "0": "background",
+        "1": "edema",
+        "2": "non-enhancing tumor",
+        "3": "enhancing tumour"
+    }
+}
