@@ -1,5 +1,5 @@
 # Towards Robust General Medical Image Segmentation
-This repository provides a PyTorch implementation of the Benchmark and baseline method presented in [Towards Robust General Medical Image Segmentation](https://arxiv.org/abs/2107.04263) ([MICCAI 2021](https://miccai2021.org/en/)). The reliability of Deep Learning systems depends on their accuracy but also on their robustness against adversarial perturbations to the input data. Several attacks and defenses have been proposed to improve the performance of Deep Neural Networks under the presence of adversarial noise in the natural image domain. However, robustness in computer-aided diagnosis for volumetric data has only been explored for specific tasks and with limited attacks. We propose a new framework to assess the robustness of general medical image segmentation systems. Our contributions are two-fold: (i) we propose a new benchmark to evaluate robustness in the context of the Medical Segmentation Decathlon (MSD) by extending the recent AutoAttack natural image classification framework to the domain of volumetric data segmentation, and (ii) we present a novel lattice architecture for RObust Generic medical image segmentation (ROG). Our results show that ROG is capable of generalizing across different tasks of the MSD and largely surpasses the state-of-the-art under sophisticated adversarial attacks.
+This repository provides a PyTorch implementation of the Benchmark and baseline method presented in [Towards Robust General Medical Image Segmentation](https://arxiv.org/abs/2107.04263) ([MICCAI 2021](https://miccai2021.org/en/)). In this work, we propose a new benchmark to evaluate robustness in the context of the Medical Segmentation Decathlon (MSD) by extending the recent AutoAttack natural image classification framework to the domain of volumetric data segmentation, and we present a novel lattice architecture for RObust Generic medical image segmentation (ROG).
 
 ## Paper
 
@@ -27,6 +27,7 @@ This repository provides a PyTorch implementation of the Benchmark and baseline 
 ```bash
 $ git clone git@github.com:BCV-Uniandes/ROG.git
 $ cd ROG
+```
 
 ## Dataset Preparation
 
@@ -43,7 +44,7 @@ TaskXX_TaskName
 |_ dataset.json
 ```
 
-2. Set the `data_root`, `out_directory` and `num_workers` variables in the file [`data_preprocessing.py`](lib/preprocessing/data_preprocessing.py) and run the following commands:
+2. Set the `data_root`, `out_directory` and `num_workers` variables in the file [`data_preprocessing.py`](https://github.com/BCV-Uniandes/ROG/blob/main/libs/preprocessing/data_preprocessing.py) and run the following commands:
 
 ```
 cd lib/preprocessing
