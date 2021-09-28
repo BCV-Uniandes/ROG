@@ -1,6 +1,8 @@
 # Towards Robust General Medical Image Segmentation
 This repository provides a PyTorch implementation of the Benchmark and baseline method presented in [Towards Robust General Medical Image Segmentation](https://arxiv.org/abs/2107.04263) ([MICCAI 2021](https://miccai2021.org/en/)). In this work, we propose a new benchmark to evaluate robustness in the context of the Medical Segmentation Decathlon (MSD) by extending the recent AutoAttack natural image classification framework to the domain of volumetric data segmentation, and we present a novel lattice architecture for RObust Generic medical image segmentation (ROG).
 
+For mor information, please visit our [project website](https://bcv-uniandes.github.io/ROG_project/)
+
 ## Paper
 
 [Towards Robust General Medical Image Segmentation](https://arxiv.org/abs/2107.04263),<br/>
