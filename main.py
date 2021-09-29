@@ -162,14 +162,14 @@ def main(rank, world_size, args):
 
     # SAMPLERS
     train_sampler = torch.utils.data.distributed.DistributedSampler(
-        train_dataset, num_replicas=world_size, rank=rank, drop_last=True)
+        train_dataset, num_replicas=world_size, rank=rank)
     train_collate = helpers.collate(info['in_size'])
     val_collate = helpers.collate_val(list(map(int, info['val_size'])))
 
     # DATALOADERS
     train_loader = DataLoader(
         train_dataset, sampler=train_sampler, batch_size=info['batch'],
-        num_workers=8, collate_fn=train_collate)
+        num_workers=8, collate_fn=train_collate, drop_last=True)
     val_loader = DataLoader(
         val_dataset, sampler=None, batch_size=info['test_batch'],
         num_workers=8, collate_fn=val_collate)
