@@ -197,7 +197,8 @@ def main(rank, world_size, args):
         accumulated_val_loss = None
         out_file = open(os.path.join(args.save_path, 'progress.csv'), 'a+')
         noise_data = torch.zeros(
-            [info['batch'], model_params['modalities']] + info['in_size'])
+            [info['batch'], model_params['modalities']] + info['in_size'],
+            device=rank)
         for epoch in range(epoch + 1, args.epochs + 1):
             lr = utils.get_lr(optimizer)
             if rank == 0:
