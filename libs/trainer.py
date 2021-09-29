@@ -40,8 +40,7 @@ def train(args, info, model, loader, noise_data, optimizer, criterion, scaler,
                 delta = noise_data[0:data.size(0)].to(rank)
                 delta.requires_grad = True
                 in_data = torch.maximum(
-                    torch.minimum(data + delta, b_min), b_max)
-                # in_data = torch.clamp(data + delta, 0, 1.0)
+                    torch.minimum(data + delta, b_max), b_min)
 
             with amp.autocast():
                 out = model(in_data)
