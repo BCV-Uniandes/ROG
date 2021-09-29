@@ -162,7 +162,7 @@ def main(rank, world_size, args):
 
     # SAMPLERS
     train_sampler = torch.utils.data.distributed.DistributedSampler(
-        train_dataset, num_replicas=world_size, rank=rank)
+        train_dataset, num_replicas=world_size, rank=rank, drop_last=True)
     train_collate = helpers.collate(info['in_size'])
     val_collate = helpers.collate_val(list(map(int, info['val_size'])))
 
