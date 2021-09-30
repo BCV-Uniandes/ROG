@@ -30,7 +30,6 @@ def train(args, info, model, loader, noise_data, optimizer, criterion, scaler,
         b_min = torch.amin(data, [2, 3, 4], keepdim=True)
         b_max = torch.amax(data, [2, 3, 4], keepdim=True)
         b_eps = (b_max - b_min) * eps
-        # data = (data - b_min) / (b_max - b_min + 1e-5)
 
         target = sample['target'].squeeze_(1).long().to(rank)
         for _ in range(iterations):
@@ -39,8 +38,7 @@ def train(args, info, model, loader, noise_data, optimizer, criterion, scaler,
             if args.AT:
                 delta = noise_data[0:data.size(0)].to(rank)
                 delta.requires_grad = True
-                in_data = torch.maximum(
-                    torch.minimum(data + delta, b_max), b_min)
+                in_data = torch.clamp(data + delta, b_min, b_max)
 
             with amp.autocast():
                 out = model(in_data)
@@ -50,9 +48,10 @@ def train(args, info, model, loader, noise_data, optimizer, criterion, scaler,
 
             if args.AT:
                 # Update the adversarial noise
-                grad = delta.grad.detach().cpu()
+                grad = delta.grad.detach()
                 noise_data[0:data.size(0)] += (b_eps * torch.sign(grad)).data
-                noise_data = torch.clamp(noise_data, -b_eps, b_eps)
+                noise_data[0:data.size(0)] = torch.clamp(
+                    noise_data[0:data.size(0)], -b_eps, b_eps)
 
             scaler.step(optimizer)
             scaler.update()
