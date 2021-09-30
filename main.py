@@ -126,7 +126,7 @@ def main(rank, world_size, args):
     epoch = 0
     best_dice = 0
     if args.resume:
-        name = 'checkpoint.pth.tar'
+        name = args.load_model + '.pth.tar'
         map_location = {'cuda:%d' % 0: 'cuda:%d' % rank}
         checkpoint = torch.load(
             os.path.join(load_path, name),
@@ -169,7 +169,7 @@ def main(rank, world_size, args):
     # DATALOADERS
     train_loader = DataLoader(
         train_dataset, sampler=train_sampler, batch_size=info['batch'],
-        num_workers=8, collate_fn=train_collate, drop_last=True)
+        num_workers=8, collate_fn=train_collate)
     val_loader = DataLoader(
         val_dataset, sampler=None, batch_size=info['test_batch'],
         num_workers=8, collate_fn=val_collate)
