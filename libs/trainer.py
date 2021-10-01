@@ -26,7 +26,7 @@ def train(args, info, model, loader, noise_data, optimizer, criterion, scaler,
     for batch_idx, sample in enumerate(loader):
         data = sample['data'].float().to(rank)
 
-        # Rescale (important for Free AT) ¡rescale the eps!
+        # Rescale the eps for the images
         b_min = torch.amin(data, [2, 3, 4], keepdim=True)
         b_max = torch.amax(data, [2, 3, 4], keepdim=True)
         b_eps = (b_max - b_min) * eps
@@ -49,7 +49,8 @@ def train(args, info, model, loader, noise_data, optimizer, criterion, scaler,
             if args.AT:
                 # Update the adversarial noise
                 grad = delta.grad.detach()
-                noise_data[0:data.size(0)] += (b_eps * torch.sign(grad)).data
+                noise_data[0:data.size(0)] += (
+                    (b_eps // 2) * torch.sign(grad)).data
                 noise_data[0:data.size(0)] = torch.clamp(
                     noise_data[0:data.size(0)], -b_eps, b_eps)
 
