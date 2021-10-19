@@ -27,7 +27,6 @@ class Medical_data(Dataset):
         self.pgd = pgd
         self.images_path = im_path
         self.folder = ''
-        # self.range = None
 
     def __len__(self):
         if self.train or self.pgd:
@@ -40,10 +39,6 @@ class Medical_data(Dataset):
             patient = self.filenames.iloc[int(idx)]
             image, label, affine = helpers.load_image(
                 patient, self.root_dir, self.train)
-            # if self.range is None
-            #     i_min = np.amin(im, axis=(-3, -2, -1), keepdims=True)
-            #     i_max = np.amax(im, axis=(-3, -2, -1), keepdims=True)
-            #     self.range = i_max - i_min
             im_shape, multimodal = helpers.image_shape(image)
 
             # If the image is smaller than the patch_size in any dimension, we

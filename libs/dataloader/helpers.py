@@ -34,8 +34,8 @@ class collate(object):
         # self.transformed = Compose(spatial + [NumpyToTensor()])
         self.transformed = Compose(spatial + [
             GammaTransform((0.7, 1.5), invert_image=False,
-                              per_channel=False, retain_stats=True,
-                              p_per_sample=0.2),
+                            per_channel=False, retain_stats=True,
+                            p_per_sample=0.2),
             ContrastAugmentationTransform(
                 p_per_sample=0.2, preserve_range=True, per_channel=False),
             BrightnessTransform(0, 1, p_per_sample=0.2, per_channel=False),
@@ -93,10 +93,6 @@ def load_image(patient, root_dir, train):
     im = im.get_fdata()
     if len(im.shape) > 3:
         im = np.transpose(im, (3, 0, 1, 2))
-    # i_min = np.amin(im, axis=(-3, -2, -1), keepdims=True)
-    # i_max = np.amax(im, axis=(-3, -2, -1), keepdims=True)
-
-    # im = (im - i_min) / (i_max - i_min + 1e-5)
 
     gt = nib.load(os.path.join(root_dir, patient['label'])).get_fdata()
     gt = gt.astype(np.int16)
@@ -186,7 +182,7 @@ def train_voxels(image, patch_size, label, foreground):
 def extract_patch(image, voxel, patch_size):
     im_shape, multimodal = image_shape(image)
 
-    v1 = np.asarray(voxel) - patch_size // 2
+    v1 = np.maximum(np.asarray(voxel) - patch_size // 2, 0)
     v1 = v1.astype(int)
     v2 = np.minimum(v1 + patch_size, im_shape)
 

@@ -35,6 +35,7 @@ class tversky_loss(nn.Module):
         self.eps = eps
 
     def forward(self, inputs, targets):
+        # inputs.shape[1]: predicted categories
         targets = one_hot(targets, inputs.shape[1])
         inputs = F.softmax(inputs, dim=1)
 

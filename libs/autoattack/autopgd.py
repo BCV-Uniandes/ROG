@@ -5,6 +5,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from libs.utilities.utils import one_hot
+from libs.utilities.losses import tversky_loss
+
 
 class APGDAttack():
     """
@@ -25,7 +28,7 @@ class APGDAttack():
         self.device = device
         # Dice loss
         self.dice_thresh = dice_thresh
-        self.dice = Dice(eps=1e-5)
+        self.dice = tversky_loss(1, eps=1e-5)
 
     def check_oscillation(self, x, j, k, y5, k3=0.75):
         t = np.zeros(x.shape[1])
@@ -219,35 +222,3 @@ class APGDAttack():
                     print('restart {} - robust accuracy: {:.2%} - cum. time: {:.1f} s'.format(
                         counter, results.float().mean(), time.time() - startt))
         return results, adv
-
-
-# # # # # # # # # # # # # # # # # loss function # # # # # # # # # # # # # # # #
-def one_hot(gt, categories):
-    size = [*gt.shape] + [categories]
-    y = gt.view(-1, 1)
-    gt = torch.FloatTensor(y.nelement(), categories).zero_().cuda()
-    gt.scatter_(1, y, 1)
-    gt = gt.view(size).permute(0, 4, 1, 2, 3).contiguous()
-    return gt
-
-
-class Dice(nn.Module):
-    def __init__(self, eps=1):
-        super(Dice, self).__init__()
-        self.eps = eps
-
-    def forward(self, inputs, targets, logits=True):
-        if logits:
-            inputs = torch.argmax(F.softmax(inputs, dim=1), dim=1)
-        targets = targets.contiguous()
-        targets = one_hot(targets, 2)
-        inputs = one_hot(inputs, 2)
-
-        dims = tuple(range(2, targets.ndimension()))
-        tps = torch.sum(inputs * targets, dims)
-        fps = torch.sum(inputs * (1 - targets), dims)
-        fns = torch.sum((1 - inputs) * targets, dims)
-        loss = (2 * tps) / (2 * tps + fps + fns + self.eps)
-        return loss[:, 1:].mean(dim=1)
-
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #

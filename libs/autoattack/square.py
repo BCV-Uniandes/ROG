@@ -17,6 +17,8 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
+from libs.utilities.losses import tversky_loss
+
 
 class SquareAttack():
     """
@@ -62,7 +64,7 @@ class SquareAttack():
         self.device = device
         # Dice loss
         self.dice_thresh = dice_thresh
-        self.dice = Dice(eps=1e-5)
+        self.dice = tversky_loss(1, eps=1e-5)
 
     def margin_and_loss(self, x, y):
         """
@@ -71,20 +73,7 @@ class SquareAttack():
 
         logits = self.predict(x)
         dice = self.dice(logits.detach(), y)
-        # xent = F.cross_entropy(logits, y, reduction='none')
-        # u = torch.arange(x.shape[0])
-        # y_corr = logits[u, y].clone()
-        # y_corr = torch.gather(logits, 1, index=y.unsqueeze(1)).squeeze() # x[x_inds, y]
-        # logits[u, y] = -float('inf')
-        # logits = logits.scatter(dim=1, index=y.unsqueeze(1), value=-float('inf'))
-        # y_others = logits.max(dim=-1)[0]
-        # y_others = logits.max(dim=1)[0]
-
-        # margin = (y_corr - y_others).mean(dim=(1,2,3))
-        if self.loss == 'ce':
-            return margin, -1. * xent
-        elif self.loss == 'margin': # this is the one we're interested in
-            return dice, dice # margin, margin
+        return dice, dice # margin, margin
 
     def init_hyperparam(self, x):
         assert self.eps is not None
@@ -304,44 +293,3 @@ class SquareAttack():
                         time.time() - startt))
 
         return adv_curr
-
-
-# # # # # # # # # # # # # # # # # loss function # # # # # # # # # # # # # # # #
-def one_hot(gt, categories):
-    size = [*gt.shape] + [categories]
-    y = gt.view(-1, 1)
-    gt = torch.FloatTensor(y.nelement(), categories).zero_().cuda()
-    gt.scatter_(1, y, 1)
-    gt = gt.view(size).permute(0, 4, 1, 2, 3).contiguous()
-    return gt
-
-import torch.nn as nn
-import torch.nn.functional as F
-class Dice(nn.Module):
-    """
-        Calculates the Tversky loss of the Foreground categories.
-        if alpha == 1 --> Dice score
-        alpha: controls the penalty for false positives.
-        beta: controls the penalty for false negatives.
-    """
-    def __init__(self, eps=1):
-        super(Dice, self).__init__()
-        self.alpha = 1 # alpha
-        self.beta = 2 - self.alpha
-        self.eps = eps
-
-    def forward(self, inputs, targets):
-        targets = targets.contiguous()
-        targets = one_hot(targets, inputs.shape[1])
-        inputs = torch.argmax(F.softmax(inputs, dim=1), dim=1)
-        inputs = one_hot(inputs, targets.shape[1])
-
-        dims = tuple(range(2, targets.ndimension()))
-        tps = torch.sum(inputs * targets, dims)
-        fps = torch.sum(inputs * (1 - targets), dims) * self.alpha
-        fns = torch.sum((1 - inputs) * targets, dims) * self.beta
-        loss = (2 * tps) / (2 * tps + fps + fns + self.eps)
-        # loss = torch.mean(loss, dim=0)
-        return loss[:, 1:].mean(dim=1)  # loss[1:].mean()
-
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #

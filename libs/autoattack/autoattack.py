@@ -10,6 +10,7 @@ import torch.nn.functional as F
 from .adv_utils import Logger
 import libs.dataloader.helpers as helpers
 from libs.utilities import test_pgd
+from libs.utilities.losses import tversky_loss
 
 # Attacks
 from .autopgd import APGDAttack
@@ -33,7 +34,7 @@ class AutoAttack():
         self.visualizations = visualizations
         # Dice loss
         self.dice_thresh = dice_thresh
-        self.dice = Dice(eps=1e-5)
+        self.dice = tversky_loss(1, eps=1e-5)
         # Dataloader
         self.loader = loader
         self.model_name = model_name
@@ -308,35 +309,6 @@ class AutoAttack():
 
         return adv
 
-
-# # # # # # # # # # # # # # # # # loss function # # # # # # # # # # # # # # # #
-def one_hot(gt, categories):
-    size = [*gt.shape] + [categories]
-    y = gt.view(-1, 1)
-    gt = torch.FloatTensor(y.nelement(), categories).zero_().cuda()
-    gt.scatter_(1, y, 1)
-    gt = gt.view(size).permute(0, 4, 1, 2, 3).contiguous()
-    return gt
-
-
-class Dice(nn.Module):
-    def __init__(self, eps=1):
-        super(Dice, self).__init__()
-        self.eps = eps
-
-    def forward(self, inputs, targets, logits=True):
-        if logits:
-            inputs = torch.argmax(F.softmax(inputs, dim=1), dim=1)
-        targets = targets.contiguous()
-        targets = one_hot(targets, 2)
-        inputs = one_hot(inputs, 2)
-
-        dims = tuple(range(2, targets.ndimension()))
-        tps = torch.sum(inputs * targets, dims)
-        fps = torch.sum(inputs * (1 - targets), dims)
-        fns = torch.sum((1 - inputs) * targets, dims)
-        loss = (2 * tps) / (2 * tps + fps + fns + self.eps)
-        return loss[:, 1:].mean(dim=1)
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 

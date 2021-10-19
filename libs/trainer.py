@@ -26,7 +26,7 @@ def train(args, info, model, loader, noise_data, optimizer, criterion, scaler,
     for batch_idx, sample in enumerate(loader):
         data = sample['data'].float().to(rank)
 
-        # Rescale the eps for the images
+        # Rescale the eps! (important for Free AT)
         b_min = torch.amin(data, [2, 3, 4], keepdim=True)
         b_max = torch.amax(data, [2, 3, 4], keepdim=True)
         b_eps = (b_max - b_min) * eps

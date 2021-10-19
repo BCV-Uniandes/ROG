@@ -16,6 +16,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from libs.utilities.losses import tversky_loss
+
 
 class FABAttack():
     """
@@ -49,7 +51,7 @@ class FABAttack():
         self.device = device
         self.n_target_classes = n_target_classes
         # our stuff
-        self.dice = Dice(eps=1e-5)  # alpha == 1 --> Dice score
+        self.dice = tversky_loss(1, eps=1e-5)  # alpha == 1 --> Dice score
         self.dice_thresh = dice_thresh
 
     def _get_predicted_label(self, x):
@@ -320,43 +322,3 @@ class FABAttack():
                                 counter, self.target_class, acc.float().mean(),
                                 self.eps, time.time() - startt))
         return adv
-
-
-# # # # # # # # # # # # # # # # # loss function # # # # # # # # # # # # # # # #
-def one_hot(gt, categories):
-    size = [*gt.shape] + [categories]
-    y = gt.view(-1, 1)
-    gt = torch.FloatTensor(y.nelement(), categories).zero_().cuda()
-    gt.scatter_(1, y, 1)
-    gt = gt.view(size).permute(0, 4, 1, 2, 3).contiguous()
-    return gt
-
-
-class Dice(nn.Module):
-    """
-        Calculates the Tversky loss of the Foreground categories.
-        if alpha == 1 --> Dice score
-        alpha: controls the penalty for false positives.
-        beta: controls the penalty for false negatives.
-    """
-    def __init__(self, eps=1):
-        super(Dice, self).__init__()
-        self.alpha = 1
-        self.beta = 2 - self.alpha
-        self.eps = eps
-
-    def forward(self, inputs, targets):
-        targets = targets.contiguous()
-        targets = one_hot(targets, inputs.shape[1])
-        inputs = torch.argmax(F.softmax(inputs, dim=1), dim=1)
-        inputs = one_hot(inputs, targets.shape[1])
-
-        dims = tuple(range(2, targets.ndimension()))
-        tps = torch.sum(inputs * targets, dims)
-        fps = torch.sum(inputs * (1 - targets), dims) * self.alpha
-        fns = torch.sum((1 - inputs) * targets, dims) * self.beta
-        loss = (2 * tps) / (2 * tps + fps + fns + self.eps)
-        # loss = torch.mean(loss, dim=0)
-        return loss[:, 1:].mean(dim=1)  # loss[1:].mean()
-
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
