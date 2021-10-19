@@ -16,7 +16,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from libs.utilities.losses import tversky_loss
+from libs.utilities.losses import Dice_metric
 
 
 class FABAttack():
@@ -51,7 +51,7 @@ class FABAttack():
         self.device = device
         self.n_target_classes = n_target_classes
         # our stuff
-        self.dice = tversky_loss(1, eps=1e-5)  # alpha == 1 --> Dice score
+        self.dice = Dice_metric(eps=1e-5)  # alpha == 1 --> Dice score
         self.dice_thresh = dice_thresh
 
     def _get_predicted_label(self, x):

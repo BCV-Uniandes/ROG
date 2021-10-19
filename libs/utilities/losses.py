@@ -28,7 +28,7 @@ class tversky_loss(nn.Module):
         alpha: controls the penalty for false positives.
         beta: controls the penalty for false negatives.
     """
-    def __init__(self, alpha, eps=1):
+    def __init__(self, alpha, eps=1e-5):
         super(tversky_loss, self).__init__()
         self.alpha = alpha
         self.beta = 2 - alpha
@@ -58,3 +58,24 @@ class segmentation_loss(nn.Module):
         dice = self.dice(inputs, targets.contiguous())
         ce = self.ce(inputs, targets)
         return dice + ce
+
+
+class Dice_metric(nn.Module):
+    def __init__(self, eps=1e-5):
+        super(Dice_metric, self).__init__()
+        self.eps = eps
+
+    def forward(self, inputs, targets, logits=True):
+        categories = inputs.shape[1]
+        targets = targets.contiguous()
+        targets = one_hot(targets, categories)
+        if logits:
+            inputs = torch.argmax(F.softmax(inputs, dim=1), dim=1)
+        inputs = one_hot(inputs, categories)
+
+        dims = tuple(range(2, targets.ndimension()))
+        tps = torch.sum(inputs * targets, dims)
+        fps = torch.sum(inputs * (1 - targets), dims)
+        fns = torch.sum((1 - inputs) * targets, dims)
+        loss = (2 * tps) / (2 * tps + fps + fns + self.eps)
+        return loss[:, 1:].mean(dim=1)

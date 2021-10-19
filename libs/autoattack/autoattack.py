@@ -10,7 +10,7 @@ import torch.nn.functional as F
 from .adv_utils import Logger
 import libs.dataloader.helpers as helpers
 from libs.utilities import test_pgd
-from libs.utilities.losses import tversky_loss
+from libs.utilities.losses import Dice_metric
 
 # Attacks
 from .autopgd import APGDAttack
@@ -34,7 +34,7 @@ class AutoAttack():
         self.visualizations = visualizations
         # Dice loss
         self.dice_thresh = dice_thresh
-        self.dice = tversky_loss(1, eps=1e-5)
+        self.dice = Dice_metric(eps=1e-5)
         # Dataloader
         self.loader = loader
         self.model_name = model_name
@@ -154,8 +154,8 @@ class AutoAttack():
                 txt.format(self.epsilon, self.dice_thresh, robust_acc))
             self.logger.log('Dice scores: {}, mean: {}'.format(
                 clean_dice, mean))
-            self.logger.log('Dice by class: {}, mean: {}'.format(
-                clean_class[:-1], clean_class[-1]))
+            # self.logger.log('Dice by class: {}, mean: {}'.format(
+            #     clean_class[:-1], clean_class[-1]))
 
         new_dice = clean_dice.clone().flatten().float()
         for attack in self.attacks_to_run:

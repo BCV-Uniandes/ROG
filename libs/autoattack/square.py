@@ -17,7 +17,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-from libs.utilities.losses import tversky_loss
+from libs.utilities.losses import Dice_metric
 
 
 class SquareAttack():
@@ -64,7 +64,7 @@ class SquareAttack():
         self.device = device
         # Dice loss
         self.dice_thresh = dice_thresh
-        self.dice = tversky_loss(1, eps=1e-5)
+        self.dice = Dice_metric(eps=1e-5)
 
     def margin_and_loss(self, x, y):
         """

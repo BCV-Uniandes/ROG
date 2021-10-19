@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from libs.utilities.utils import one_hot
-from libs.utilities.losses import tversky_loss
+from libs.utilities.losses import Dice_metric
 
 
 class APGDAttack():
@@ -28,7 +28,7 @@ class APGDAttack():
         self.device = device
         # Dice loss
         self.dice_thresh = dice_thresh
-        self.dice = tversky_loss(1, eps=1e-5)
+        self.dice = Dice_metric(eps=1e-5)
 
     def check_oscillation(self, x, j, k, y5, k3=0.75):
         t = np.zeros(x.shape[1])
