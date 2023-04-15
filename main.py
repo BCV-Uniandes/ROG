@@ -17,7 +17,7 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 
 # ROG imports
 import rog.trainer as trainer
-from rog.model.model import ROG
+from rog.model.rog import ROG
 from rog.autoattack import AutoAttack
 from rog.settings import plan_experiment
 from rog.dataloader import dataloader, helpers

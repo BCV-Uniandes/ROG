@@ -1,3 +1,9 @@
+
+# Build folders & files
+build
+ROG_3dsegm.egg-info
+*.egg
+
 # Results folder
 Results/
 

@@ -1,6 +1,6 @@
-from global_features import Global_features
-from task_preprocessing import Preprocess_datasets
-from image_sizes import Calcualte_sizes
+from rog.preprocessing.global_features import Global_features
+from rog.preprocessing.task_preprocessing import Preprocess_datasets
+from rog.preprocessing.image_sizes import Calcualte_sizes
 
 data_root = ''  # path to raw decathlon data
 out_directory = ''  # where to store the new data
