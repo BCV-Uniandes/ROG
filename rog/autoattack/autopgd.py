@@ -5,8 +5,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from libs.utilities.utils import one_hot
-from libs.utilities.losses import Dice_metric
+from rog.utilities.utils import one_hot
+from rog.utilities.losses import Dice_metric
 
 
 class APGDAttack():

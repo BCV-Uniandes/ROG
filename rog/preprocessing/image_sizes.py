@@ -6,7 +6,7 @@ import nibabel as nib
 from joblib import Parallel, delayed
 from scipy.ndimage import morphology, measurements
 
-from utils import read_json
+from .utils import read_json
 
 
 def parallel_sizes(image, labels):

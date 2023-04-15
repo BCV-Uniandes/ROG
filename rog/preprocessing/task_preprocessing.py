@@ -3,7 +3,7 @@ import shutil
 import numpy as np
 from joblib import Parallel, delayed
 
-from utils import read_json, preprocess, cases_list
+from .utils import read_json, preprocess, cases_list
 
 
 def Preprocess_datasets(out_dir, root, workers):

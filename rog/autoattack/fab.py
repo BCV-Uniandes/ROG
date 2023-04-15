@@ -16,7 +16,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from libs.utilities.losses import Dice_metric
+from rog.utilities.losses import Dice_metric
 
 
 class FABAttack():

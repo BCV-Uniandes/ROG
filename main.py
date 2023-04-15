@@ -4,22 +4,24 @@ import time
 import argparse
 import numpy as np
 
+# Torch imports
 import torch
 import torch.optim as optim
 import torch.cuda.amp as amp
 import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 
-import libs.trainer as trainer
-from libs.model.model import ROG
-from settings import plan_experiment
-from libs.autoattack import AutoAttack
-from libs.dataloader import dataloader, helpers
-from libs.utilities import losses, utils, test, test_pgd
-
 import torch.distributed as dist
 import torch.multiprocessing as mp
 from torch.nn.parallel import DistributedDataParallel as DDP
+
+# ROG imports
+import rog.trainer as trainer
+from rog.model.model import ROG
+from rog.autoattack import AutoAttack
+from rog.settings import plan_experiment
+from rog.dataloader import dataloader, helpers
+from rog.utilities import losses, utils, test, test_pgd
 
 tasks = {
     '1': 'Task01_BrainTumour',
@@ -38,7 +40,7 @@ tasks = {
 
 def setup(rank, world_size, port):
     os.environ['MASTER_ADDR'] = 'localhost'
-    os.environ['MASTER_PORT'] = '1234' + port
+    os.environ['MASTER_PORT'] = '123' + port
 
     # initialize the process group
     dist.init_process_group("nccl", rank=rank, world_size=world_size)

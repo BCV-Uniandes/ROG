@@ -8,9 +8,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from .adv_utils import Logger
-import libs.dataloader.helpers as helpers
-from libs.utilities import test_pgd
-from libs.utilities.losses import Dice_metric
+import rog.dataloader.helpers as helpers
+from rog.utilities import test_pgd
+from rog.utilities.losses import Dice_metric
 
 # Attacks
 from .autopgd import APGDAttack

@@ -5,7 +5,7 @@ import json
 import numpy as np
 import torch.nn as nn
 
-# batch sizes used for training the network
+# batch sizes used for training the network in a 12Gb GPU
 precalculated_batch = {
     '1': 3,  # [128, 128, 96]
     '2': 2,  # [192, 192, 96]

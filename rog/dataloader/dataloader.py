@@ -7,7 +7,7 @@ import pandas as pd
 import nibabel as nib
 from torch.utils.data import Dataset
 
-import libs.dataloader.helpers as helpers
+import rog.dataloader.helpers as helpers
 
 import torch.nn as nn
 import torch.nn.functional as F
