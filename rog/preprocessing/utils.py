@@ -169,7 +169,7 @@ def read_json(task, root):
         numTest = dataset['numTest']
         CT = dataset['modality']['0'] == 'CT'
 
-    with open('stats.json', 'r') as f:
+    with open('../Tasks/stats.json', 'r') as f:
         statistics = json.load(f)
         low = statistics[task]['0.5']
         high = statistics[task]['99.5']

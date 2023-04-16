@@ -46,8 +46,8 @@ def Global_features(root, num_workers):
     tasks.sort()
     statistics = {}
     for i in tasks:
-        if os.path.isfile('stats.json'):
-            with open('stats.json', 'r') as f:
+        if os.path.isfile('../Tasks/stats.json'):
+            with open('../Tasks/stats.json', 'r') as f:
                 stats_file = json.load(f)
                 if i in stats_file:
                     print('Stitstics of task {} already calculated'.format(i))
@@ -94,5 +94,5 @@ def Global_features(root, num_workers):
             '0.5': np.squeeze(low).tolist(),
             '99.5': np.squeeze(high).tolist()}
 
-        with open('stats.json', 'w') as outfile:
+        with open('../Tasks/stats.json', 'w') as outfile:
             json.dump(statistics, outfile, indent=4)

@@ -13,22 +13,12 @@ For mor information, please visit our [project website](https://bcv-uniandes.git
 
 ## Installation
 
-### Requirements
-
-- Python
-- Pytorch >= 1.6.0
-- Numpy
-- Pandas 
-- Scipy
-- Matplotlib
-- Nibabel
-- batchgenerators 0.23
-
 ### Cloning the repository
 
 ```bash
 $ git clone git@github.com:BCV-Uniandes/ROG.git
 $ cd ROG
+$ python setup.py install
 ```
 
 ## Dataset Preparation
@@ -46,10 +36,9 @@ TaskXX_TaskName
 |_ dataset.json
 ```
 
-2. Set the `data_root`, `out_directory` and `num_workers` variables in the file [`data_preprocessing.py`](https://github.com/BCV-Uniandes/ROG/blob/main/libs/preprocessing/data_preprocessing.py) and run the following commands:
+2. Set the `data_root`, `out_directory` and `num_workers` variables in the file [`data_preprocessing.py`](https://github.com/BCV-Uniandes/ROG/blob/main/data_preprocessing.py) and run the following command:
 
 ```
-cd lib/preprocessing
 python data_preprocessing.py
 ```
 

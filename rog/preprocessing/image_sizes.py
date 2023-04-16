@@ -6,7 +6,7 @@ import nibabel as nib
 from joblib import Parallel, delayed
 from scipy.ndimage import morphology, measurements
 
-from utils import read_json
+from .utils import read_json
 
 
 def parallel_sizes(image, labels):
@@ -44,7 +44,7 @@ def Calcualte_sizes(root, num_workers):
     tasks.sort()
 
     for task in tasks:
-        file_name = os.path.join('../..', 'Tasks', task, 'dataset_prueba.json')
+        file_name = os.path.join('../Tasks', task, 'dataset_prueba.json')
         if os.path.isfile(file_name):
             print('Sizes of task {} already calculated'.format(task))
             continue

@@ -17,7 +17,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-from libs.utilities.losses import Dice_metric
+from rog.utilities.losses import Dice_metric
 
 
 class SquareAttack():
