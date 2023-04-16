@@ -79,10 +79,10 @@ def plan_experiment(task, batch, patience=50, fold=0, rank=0):
         'seed': 12345,
         'output_folder': os.path.join('Results', task),
         'root': os.path.join('/media/SSD0/ladaza/Data/Decathlon_new_preprocessing', task),
-        'train_file': os.path.join('Tasks', task, f'train_fold{fold}.csv'),
-        'val_file': os.path.join('Tasks', task, f'val_fold{fold}.csv'),
-        'test_file': os.path.join('Tasks', task, f'val_fold{fold}.csv')
-        # 'test_file': os.path.join('Tasks', task, 'test_paths.csv')
+        'train_file': os.path.join('./Tasks', task, f'train_fold{fold}.csv'),
+        'val_file': os.path.join('./Tasks', task, f'val_fold{fold}.csv'),
+        'test_file': os.path.join('./Tasks', task, f'val_fold{fold}.csv')
+        # 'test_file': os.path.join('./Tasks', task, 'test_paths.csv')
     }
 
     model = {
