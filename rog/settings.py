@@ -21,7 +21,7 @@ precalculated_batch = {
 }
 
 
-def plan_experiment(task, batch, patience, fold, rank):
+def plan_experiment(task, batch, patience=50, fold=0, rank=0):
     with open(os.path.join('Tasks', task, 'dataset.json'), 'r') as f:
         dataset = json.load(f)
         mean_size = dataset['mean_size']
